@@ -52,24 +52,24 @@ try:
 finally:
   GPIO.cleanup()
 
-def recentUsers():
-  try:
-    cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
-    result = cursor.fetch()
-    print(result)
-    if cursor.rowcount >= 1:
-      displayUser(Usernames)
-    pass
+# def recentUsers():
+#   try:
+#     cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
+#     result = cursor.fetch()
+#     print(result)
+#     if cursor.rowcount >= 1:
+#       displayUser(Usernames)
+#     pass
 
-def userOutAlert():
-  try:
-    cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
-    result = cursor.fetch()
-    print(result)  
-    pass
+# def userOutAlert():
+#   try:
+#     cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
+#     result = cursor.fetch()
+#     print(result)  
+#     pass
 
-def timeOut():
-  try:
-  t = psycopg2.Timestamp  
-  cursor.execute("INSERT INTO attendance (user_id) VALUES (%s)", (result[0],) )
+# def timeOut():
+#   try:
+#   t = psycopg2.Timestamp  
+#   cursor.execute("INSERT INTO attendance (user_id) VALUES (%s)", (result[0],) )
 
