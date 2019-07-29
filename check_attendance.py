@@ -2,8 +2,8 @@
 import time
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
-import mysql.connector
-import Adafruit_CharLCD as LCD
+# import mysql.connector
+# import Adafruit_CharLCD as LCD
 import psycopg2
 import yaml
 
@@ -30,8 +30,8 @@ reader = SimpleMFRC522()
 
 try:
   while True:
-    lcd.clear()
-    lcd.message('Place Card to\nrecord attendance')
+    # lcd.clear()
+    # lcd.message('Place Card to\nrecord attendance')
     id, text = reader.read()
 
     cursor.execute("Select id, firstName, lastName, phone FROM users WHERE rfid_uid=(%s)", (str(id)))
