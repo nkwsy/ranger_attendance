@@ -7,9 +7,9 @@ from mfrc522 import SimpleMFRC522
 import psycopg2
 import yaml
 
-import eink.py
+#import eink.py
 
-conf = yaml.load(open('dbcreds.yml'))
+conf = yapip install pyyamlml.load(open('dbcreds.yml'))
 user = conf['User']
 pwd = conf['Password']
 host = conf['Host']
