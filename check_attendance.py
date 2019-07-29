@@ -27,7 +27,6 @@ db = psycopg2.connect(
 cursor = db.cursor()
 reader = SimpleMFRC522()
 
-lcd = LCD.Adafruit_CharLCD(4, 24, 23, 17, 18, 22, 16, 2, 4);
 
 try:
   while True:
@@ -44,7 +43,7 @@ try:
       cursor.execute("Select user_id FROM attendance WHERE time_out IS NULL")
       if cursor.rowcount >= 1:
         currentUser = timeOut(cursor.fetchone())
-        cursor.execute("UPDATE attendance SET time_out=CURRENT_TIMESTAMP WHERE time_out IS_NULL AND user_id=(%s)", (result[0],);)
+        cursor.execute("UPDATE attendance SET time_out=CURRENT_TIMESTAMP WHERE time_out IS_NULL AND user_id=(%s)", (result[0],))
         db.commit()
       else:
         cursor.execute("INSERT INTO attendance (user_id, time_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
