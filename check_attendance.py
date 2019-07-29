@@ -19,7 +19,7 @@ database = conf['Database']
 db = psycopg2.connect(
   host=host,
   user=user,
-  passwd=pwd,
+  password=pwd,
   database=database,
   port=port 
 )
