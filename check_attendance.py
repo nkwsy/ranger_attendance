@@ -43,7 +43,7 @@ try:
       # lcd.message("Welcome " + result[1])
       cursor.execute("Select user_id FROM attendance WHERE time_out IS NULL")
       if cursor.rowcount >= 1:
-        currentUser = timeOut(cursor.fetchone()):
+        currentUser = timeOut(cursor.fetchone())
         cursor.execute("UPDATE attendance SET time_out=CURRENT_TIMESTAMP WHERE time_out IS_NULL AND user_id=(%s)", (result[0],);)
         db.commit()
       else:
