@@ -59,14 +59,14 @@ def recentUsers():
     print(result)
     if cursor.rowcount >= 1:
       displayUser(Usernames)
-  pass
+    pass
 
 def userOutAlert():
   try:
     cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
     result = cursor.fetch()
     print(result)  
-  pass
+    pass
 
 def timeOut():
   try:
