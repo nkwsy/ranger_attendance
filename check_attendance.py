@@ -9,7 +9,7 @@ import yaml
 
 #import eink.py
 
-conf = yapip install pyyamlml.load(open('dbcreds.yml'))
+conf = yaml.load(open('dbcreds.yml'))
 user = conf['User']
 pwd = conf['Password']
 host = conf['Host']
