@@ -34,7 +34,7 @@ try:
     # lcd.message('Place Card to\nrecord attendance')
     id, text = reader.read()
     print(id)
-    cursor.execute("Select id, firstName, lastName, phone FROM users WHERE rfid_uid=(%i)", (id))
+    cursor.execute("Select id, firstName, lastName, phone FROM users WHERE rfid_uid=(%s)", (id))
     result = cursor.fetchone()
     print(result)
 #Check if account is valid, sign in or out the user.
