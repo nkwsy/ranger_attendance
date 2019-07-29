@@ -33,10 +33,10 @@ try:
     # lcd.clear()
     # lcd.message('Place Card to\nrecord attendance')
     id, text = reader.read()
-
+    print(id)
     cursor.execute("Select id, firstName, lastName, phone FROM users WHERE rfid_uid=(%s)", (str(id)))
     result = cursor.fetchone()
-
+    print(result)
 #Check if account is valid, sign in or out the user.
     if cursor.rowcount >= 1:
       # lcd.message("Welcome " + result[1])
@@ -45,8 +45,10 @@ try:
         currentUser = timeOut(cursor.fetchone())
         cursor.execute("UPDATE attendance SET time_out=CURRENT_TIMESTAMP WHERE time_out IS_NULL AND user_id=(%s)", (result[0],))
         db.commit()
+        print(result[1],result[2],' Checked out')
       else:
         cursor.execute("INSERT INTO attendance (user_id, time_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
+        print(result[1],result[2],' Checked in')
         db.commit()                                                                                                                                                    .message("User does not exist.")
     time.sleep(2)
 finally:
