@@ -1,7 +1,7 @@
  #!/usr/bin/env python
 import time
-import RPi.GPIO as GPIO
-from mfrc522 import SimpleMFRC522
+#import RPi.GPIO as GPIO
+#from mfrc522 import SimpleMFRC522
 # import mysql.connector
 # import Adafruit_CharLCD as LCD
 import psycopg2
@@ -25,53 +25,153 @@ db = psycopg2.connect(
 )
 
 cursor = db.cursor()
-reader = SimpleMFRC522()
+#reader = SimpleMFRC522()
 
 
-try:
-  while True:
-    # lcd.clear()
-    # lcd.message('Place Card to\nrecord attendance')
-    id, text = reader.read()
-    print(id)
-    cursor.execute("Select id, firstName, lastName, phone FROM users WHERE rfid_uid=%s", (str(id),))
-    result = cursor.fetchone()
-    print(result)
-#Check if account is valid, sign in or out the user.
+### SCreen stuff
+import subprocess
+ 
+from board import SCL, SDA
+import busio
+from PIL import Image, ImageDraw, ImageFont
+import adafruit_ssd1306
+ 
+ 
+# Create the I2C interface.
+i2c = busio.I2C(SCL, SDA)
+ 
+# Create the SSD1306 OLED class.
+# The first two parameters are the pixel width and pixel height.  Change these
+# to the right size for your display!
+disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
+
+# Clear display.
+disp.fill(0)
+disp.show()
+ 
+# Create blank image for drawing.
+# Make sure to create image with mode '1' for 1-bit color.
+width = disp.width
+height = disp.height
+image = Image.new('1', (width, height))
+ 
+# Get drawing object to draw on image.
+draw = ImageDraw.Draw(image)
+
+# Draw a black filled box to clear the image.
+draw.rectangle((0, 0, width, height), outline=0, fill=0)
+ 
+# Draw some shapes.
+# First define some constants to allow easy resizing of shapes.
+padding = -2
+top = padding
+bottom = height-padding
+# Move left to right keeping track of the current x position for drawing shapes.
+x = 0
+
+
+# Load default font.
+#font = ImageFont.load_default()
+font = ImageFont.truetype('chicago.ttf', 9)
+
+def display(name):
+  draw.text((x, top+8), name, font=font, fill=255)
+  disp.image(image)
+  disp.show()
+  pass
+
+
+
+### SEND EMAIL
+import smtplib
+def email(emailaddress):
+  server = smtplib.SMTP('smtp.gmail.com', 587)
+
+#Next, log in to the server
+  server.login("ranger@urbanriv.org", "Theriverisdirty!!!")
+
+#Send the mail
+  msg = "Hello! /n You have been out for over 2 hours. Please confirm that you are indeed still out by replying to this message or by texting Ali. /n thanks, /n Ranger Rick the Robot" # The /n separates the message from the headers
+  server.sendmail("ranger@urbanriv.org", emailaddress, msg)
+
+# Posting to a Slack channel
+def send_message_to_slack(text):
+    from urllib import request, parse
+    import json
+ 
+    post = {"text": "{0}".format(text)}
+ 
+    try:
+        json_data = json.dumps(post)
+        req = request.Request("https://hooks.slack.com/services/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",
+                              data=json_data.encode('ascii'),
+                              headers={'Content-Type': 'application/json'}) 
+        resp = request.urlopen(req)
+    except Exception as em:
+        print("EXCEPTION: " + str(em))
+
+def recentUsers():
+  try:
+    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
+    result = cursor.fetchall()
+    for x in result:
+    	pass
+    	g = days_hours_minutes(x[3])
+    	m = x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago'
+    	print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
+    	if g[1] > 2:
+    		#email(x[4])
+    		send_message_to_slack(m)
     if cursor.rowcount >= 1:
-      # lcd.message("Welcome " + result[1])
-      cursor.execute("Select user_id FROM attendance WHERE time_out IS NULL")
-      if cursor.rowcount >= 1:
-        currentUser = timeOut(cursor.fetchone())
-        cursor.execute("UPDATE attendance SET time_out=CURRENT_TIMESTAMP WHERE time_out IS_NULL AND user_id=(%s)", (result[0],))
-        db.commit()
-        print(result[1],result[2],' Checked out')
-      else:
-        cursor.execute("INSERT INTO attendance (user_id, time_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
-        print(result[1],result[2],' Checked in')
-        db.commit()                                                                                                                                                    .message("User does not exist.")
-    time.sleep(2)
-finally:
-  GPIO.cleanup()
-
-# def recentUsers():
-#   try:
-#     cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
-#     result = cursor.fetch()
-#     print(result)
-#     if cursor.rowcount >= 1:
-#       displayUser(Usernames)
-#     pass
-
-# def userOutAlert():
-#   try:
-#     cursor.execute("Select user_id, firstName, lastName, phone FROM attendance WHERE time_out IS NULL ORDER BY time_in ")
-#     result = cursor.fetch()
-#     print(result)  
-#     pass
+      print(result[0][1])
+      #displayUser(Usernames)
+    pass
+  finally:
+  	pass
 
 # def timeOut():
 #   try:
 #   t = psycopg2.Timestamp  
 #   cursor.execute("INSERT INTO attendance (user_id) VALUES (%s)", (result[0],) )
 
+def days_hours_minutes(td):
+    return td.days, td.seconds//3600, (td.seconds//60)%60
+
+def userOutAlert(cursor):
+  cursor.execute("Select user_id, age(clock_in) FROM attendance WHERE clock_out IS NULL ORDER BY clock_in")
+  result = cursor.fetchall()
+  print(result)  
+  pass
+
+try:
+  while True:
+    recentUsers()
+    # lcd.clear()
+    # lcd.message('Place Card to\nrecord attendance')
+    #id, text = reader.read()
+    id = 584185381670
+    print(id)
+    cursor.execute("Select id, first_name, last_name, phone FROM users WHERE rfid_uid=%s", (str(id),))
+    result = cursor.fetchone()
+    print(result)
+#Check if account is valid, sign in or out the user.
+    if cursor.rowcount >= 1:
+      # lcd.message("Welcome " + result[1])
+      cursor.execute("Select user_id FROM attendance WHERE clock_out IS NULL")
+      if cursor.rowcount >= 1:
+        #currentUser = timeOut(cursor.fetchone())
+        cursor.execute("UPDATE attendance SET clock_out=CURRENT_TIMESTAMP WHERE clock_out IS NULL AND user_id=(%s)", (result[0],))
+        db.commit()
+        print(result[1],result[2],' Checked out')
+        userOutAlert(cursor)
+      else:
+        cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
+        print(result[1],result[2],' Checked in')
+        db.commit()
+        display(result[1])
+        time.sleep(10)
+        userOutAlert(cursor)
+    time.sleep(2)
+finally:
+  pass
+  #GPIO.cleanup()
