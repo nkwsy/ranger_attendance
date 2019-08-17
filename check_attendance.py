@@ -1,9 +1,9 @@
  #!/usr/bin/env python
 import time
-#import RPi.GPIO as GPIO
-#from mfrc522 import SimpleMFRC522
+import RPi.GPIO as GPIO
+from mfrc522 import SimpleMFRC522
 # import mysql.connector
-# import Adafruit_CharLCD as LCD
+import Adafruit_CharLCD as LCD
 import psycopg2
 import yaml
 
@@ -25,7 +25,7 @@ db = psycopg2.connect(
 )
 
 cursor = db.cursor()
-#reader = SimpleMFRC522()
+reader = SimpleMFRC522()
 
 
 ### SCreen stuff
@@ -43,7 +43,7 @@ i2c = busio.I2C(SCL, SDA)
 # Create the SSD1306 OLED class.
 # The first two parameters are the pixel width and pixel height.  Change these
 # to the right size for your display!
-disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
+disp = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 
 # Clear display.
 disp.fill(0)
@@ -82,13 +82,18 @@ def display(name):
   pass
 
 def displayOut(name):
-  textUsed = 'On Water: '+ name
+  textUsed = 'On Water: '+ ''.join(name)
   draw.text((x, top+1), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
   pass
 
-
+def displayInvalidID():
+  textUsed = 'Bad read, try again \n Or replace card '
+  draw.text((x, top+8), textUsed, font=font, fill=255)
+  disp.image(image)
+  disp.show()
+  pass
 ### SEND EMAIL
 import smtplib
 def email(emailaddress):
@@ -181,6 +186,8 @@ try:
         display(result[1])
         time.sleep(10)
         userOutAlert(cursor)
+    else:
+
     time.sleep(2)
 finally:
   pass
