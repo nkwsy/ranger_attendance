@@ -85,6 +85,11 @@ x = 2
 def clear():
   draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
+def header():
+  draw.rectangle((0, 0, width, 8), outline=0, fill=1)
+  t = now.strftime("%H:%M")
+  draw.text((x, top+8), "Checkout  - Name", font=font, fill=255)
+
 
 def displayThanks():
   clear()
@@ -109,10 +114,11 @@ def displayOut(name):
   clear()
   disp.image(image)
   textUsed = name
-  g = 2
+  g = 9
   for tex in name:
     draw.text((x, top+g), str(tex), font=font, fill=255)
-    g +=8
+    g +=9
+  header()
   disp.image(image)
   disp.show()
   pass
