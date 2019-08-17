@@ -73,8 +73,21 @@ x = 0
 # Load default font.
 #font = ImageFont.load_default()
 font = ImageFont.truetype('chicago.ttf', 9)
+fontmd = ImageFont.truetype('chicago.ttf', 12)
+fontlg = ImageFont.truetype('chicago.ttf', 18)
+
 
 def display(name):
+  disp.fill(0)
+  disp.show()
+  textUsed = 'Thanks :) '
+  draw.text((x, top+8), textUsed, font=fontlg, fill=255)
+  disp.image(image)
+  disp.show()
+  time.sleep(2)
+  pass
+
+def displayIn(name):
   textUsed = 'Welcome '+ name
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
