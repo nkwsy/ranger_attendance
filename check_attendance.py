@@ -34,7 +34,7 @@ import subprocess
 from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
-import Adafruit_SSD1306
+import adafruit_ssd1306
  
  
 # Create the I2C interface.
@@ -43,11 +43,9 @@ i2c = busio.I2C(SCL, SDA)
 # Create the SSD1306 OLED class.
 # The first two parameters are the pixel width and pixel height.  Change these
 # to the right size for your display!
-# disp = Adafruit_SSD1306.SSD1306_I2C(128, 64, i2c)
-disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST)
+disp = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 
 # Clear display.
-disp.begin()
 disp.fill(0)
 disp.show()
  
@@ -80,7 +78,8 @@ fontlg = ImageFont.truetype('chicago.ttf', 18)
 
 
 def displayThanks():
-  disp.clear()
+  disp.fill(0)
+  disp.show()
   textUsed = 'Thanks :) '
   draw.text((x, top+8), textUsed, font=fontlg, fill=255)
   disp.image(image)
@@ -89,7 +88,8 @@ def displayThanks():
   pass
 
 def displayIn(name):
-  disp.clear()
+  disp.fill(0)
+  disp.show()
   textUsed = 'Welcome '+ name
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
@@ -99,7 +99,8 @@ def displayIn(name):
   pass
 
 def displayOut(name):
-  disp.clear()
+  disp.fill(0)
+  disp.show()
   textUsed = name
   draw.text((x, top+1), textUsed, font=font, fill=255)
   disp.image(image)
@@ -107,7 +108,8 @@ def displayOut(name):
   pass
 
 def displayInvalidID():
-  disp.clear()
+  disp.fill(0)
+  disp.show()
   textUsed = "YOU DIDN'T SAY \nTHE MAGIC WORD"
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
