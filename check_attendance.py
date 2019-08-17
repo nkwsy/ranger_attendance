@@ -75,11 +75,18 @@ x = 0
 font = ImageFont.truetype('chicago.ttf', 9)
 
 def display(name):
-  draw.text((x, top+8), name, font=font, fill=255)
+  textUsed = 'Welcome '+ name
+  draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
   pass
 
+def displayOut(name):
+  textUsed = 'On Water: '+ name
+  draw.text((x, top+1), textUsed, font=font, fill=255)
+  disp.image(image)
+  disp.show()
+  pass
 
 
 ### SEND EMAIL
@@ -93,6 +100,7 @@ def email(emailaddress):
 #Send the mail
   msg = "Hello! /n You have been out for over 2 hours. Please confirm that you are indeed still out by replying to this message or by texting Ali. /n thanks, /n Ranger Rick the Robot" # The /n separates the message from the headers
   server.sendmail("ranger@urbanriv.org", emailaddress, msg)
+
 
 # Posting to a Slack channel
 def send_message_to_slack(text):
@@ -109,6 +117,7 @@ def send_message_to_slack(text):
         resp = request.urlopen(req)
     except Exception as em:
         print("EXCEPTION: " + str(em))
+
 
 def recentUsers():
   try:
@@ -140,7 +149,8 @@ def days_hours_minutes(td):
 def userOutAlert(cursor):
   cursor.execute("Select user_id, age(clock_in) FROM attendance WHERE clock_out IS NULL ORDER BY clock_in")
   result = cursor.fetchall()
-  print(result)  
+  print(result)
+  displayOut(result)
   pass
 
 try:
@@ -148,7 +158,7 @@ try:
     recentUsers()
     # lcd.clear()
     # lcd.message('Place Card to\nrecord attendance')
-    #id, text = reader.read()
+    #id, text = reader.re ad()
     id = 584185381670
     print(id)
     cursor.execute("Select id, first_name, last_name, phone FROM users WHERE rfid_uid=%s", (str(id),))
