@@ -75,7 +75,7 @@ x = 0
 font = ImageFont.truetype('chicago.ttf', 8)
 fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
-monaco = ImageFont.truetype('monaco.ttf', 8)
+monaco = ImageFont.truetype('monaco.ttf', 12)
 
 cairolg = ImageFont.truetype('Cairo.ttf', 18)
 cairo = ImageFont.truetype('Cairo.ttf', 8)
@@ -154,7 +154,7 @@ def send_message_to_slack(text):
 
 def recentUsers():
   try:
-    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in, 'OF-5HH12:MI') AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
+    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in, 'HH12:MI') AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
     result = cursor.fetchall()
     rout = []
     for x in result:
