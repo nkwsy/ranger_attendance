@@ -134,7 +134,7 @@ def recentUsers():
       g = days_hours_minutes(x[3])
       m = x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago'
       print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
-      rout += str(''.join(m)) + '\n'
+      rout += ''.join(str(m)) + '\n'
       if g[1] > 2:
         #email(x[4])
         send_message_to_slack(m)
