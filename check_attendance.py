@@ -187,7 +187,7 @@ try:
         time.sleep(10)
         userOutAlert(cursor)
     else:
-
+      displayInvalidID()
     time.sleep(2)
 finally:
   pass
