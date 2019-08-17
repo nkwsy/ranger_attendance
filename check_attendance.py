@@ -154,18 +154,19 @@ def send_message_to_slack(text):
 
 def recentUsers():
   try:
-    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
+    cursor.execute("Select first_name,last_name,phone,age(now(),(TIMESTAMP clock_in 'HH12:MI' AT TIME ZONE 'CST')c),email, clock_in AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
     result = cursor.fetchall()
     rout = []
     for x in result:
       pass
       g = days_hours_minutes(x[3])
       m = x[0],x[1],'-H:',g[1],' M:',g[2]
+      m = '{0} {1} - {3} '.format(x[0],x[1],x[2],g[1],g[2],g[3])
       print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
       rout.append(''.join(str(m)))
       if g[1] > 2:
         #email(x[4]){0} {1}'.format(result[1],result[2])
-        send_message_to_slack('@channel {0} {1} has been out for {3} Hour {4} Minutes, {2}'.format(x[0],x[1],x[2],g[1],g[2]))
+        send_message_to_slack('@channel {0} {1} has been out for {3} Hour {4} Minutes. Phone: {2}'.format(x[0],x[1],x[2],g[1],g[2]))
     if cursor.rowcount >= 1:
       print(result[0][1])
       print(rout)
