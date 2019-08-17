@@ -161,7 +161,7 @@ def recentUsers():
       rout.append(''.join(str(m)))
       if g[1] > 2:
         #email(x[4])
-        send_message_to_slack(m)
+        send_message_to_slack(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
     if cursor.rowcount >= 1:
       print(result[0][1])
       displayOut(rout)
@@ -191,6 +191,7 @@ try:
     # lcd.message('Place Card to\nrecord attendance')
     id, text = reader.read()
     #id = 584185381670
+    id = int(id)
     print(id)
     cursor.execute("Select id, first_name, last_name, phone FROM users WHERE rfid_uid=%s", (str(id),))
     result = cursor.fetchone()
@@ -204,6 +205,7 @@ try:
         cursor.execute("UPDATE attendance SET clock_out=CURRENT_TIMESTAMP WHERE clock_out IS NULL AND user_id=(%s)", (result[0],))
         db.commit()
         print(result[1],result[2],' Checked out')
+        send_message_to_slack('Checked Out: ',result[1],' ',result[2])
         userOutAlert(cursor)
         displayThanks()
 
@@ -212,6 +214,7 @@ try:
         print(result[1],result[2],' Checked in')
         db.commit()
         displayIn(str(result[1]))
+        send_message_to_slack('Checked In: ',result[1],' ',result[2])
         userOutAlert(cursor)
     else:
       displayInvalidID()
