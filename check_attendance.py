@@ -161,8 +161,8 @@ def recentUsers():
       pass
       g = days_hours_minutes(x[3])
       #m = x[0],x[1],'-H:',g[1],' M:',g[2]
-      m = '{0} {1} - {5} '.format(x[0],x[1],x[2],g[1],g[2],x[6])
-      print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago', x[6])
+      m = '{0} {1} - {5} '.format(x[0],x[1],x[2],g[1],g[2],x[5])
+      print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago', x[5])
       rout.append(''.join(str(m)))
       if g[1] > 2:
         #email(x[4]){0} {1}'.format(result[1],result[2])
