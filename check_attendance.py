@@ -87,7 +87,7 @@ def clear():
 
 def header():
   draw.rectangle((0, 0, width, 8), outline=0, fill=1)
-  t = now.strftime("%H:%M")
+  #t = now.strftime("%H:%M")
   draw.text((x, top+8), "Checkout  - Name", font=font, fill=255)
 
 
