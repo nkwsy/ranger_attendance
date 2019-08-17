@@ -76,6 +76,9 @@ font = ImageFont.truetype('chicago.ttf', 8)
 fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
 
+def clear():
+  disp.fill(0)
+  disp.show()
 
 def displayThanks():
   disp.fill(0)
@@ -104,8 +107,8 @@ def displayOut(name):
   disp.image(image)
   textUsed = name
   g = 1
-  for x in name:
-    draw.text((x, top+g), str(x), font=font, fill=255)
+  for tex in name:
+    draw.text((x, top+g), str(tex), font=font, fill=255)
     g +=8
   disp.image(image)
   disp.show()
