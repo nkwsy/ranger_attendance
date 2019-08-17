@@ -101,7 +101,7 @@ def displayIn(name):
 def displayOut(name):
   disp.fill(0)
   disp.show()
-  textUsed = 'On Water: '+ ''.join(name)
+  textUsed = name
   draw.text((x, top+1), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
@@ -209,7 +209,6 @@ try:
         print(result[1],result[2],' Checked in')
         db.commit()
         displayIn(result[1])
-        time.sleep(10)
         userOutAlert(cursor)
     else:
       displayInvalidID()
