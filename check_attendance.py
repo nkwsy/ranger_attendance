@@ -80,6 +80,8 @@ monaco = ImageFont.truetype('monaco.ttf', 12)
 cairolg = ImageFont.truetype('Cairo.ttf', 18)
 cairo = ImageFont.truetype('Cairo.ttf', 8)
 
+x = 2
+
 def clear():
   draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
@@ -107,7 +109,7 @@ def displayOut(name):
   clear()
   disp.image(image)
   textUsed = name
-  g = 1
+  g = 2
   for tex in name:
     draw.text((x, top+g), str(tex), font=monaco, fill=255)
     g +=8
