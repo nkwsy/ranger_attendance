@@ -75,6 +75,7 @@ x = 0
 font = ImageFont.truetype('chicago.ttf', 8)
 fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
+monaco = ImageFont.truetype('monaco.ttf', 8)
 
 def clear():
   draw.rectangle((0, 0, width, height), outline=0, fill=0)
@@ -105,7 +106,7 @@ def displayOut(name):
   textUsed = name
   g = 1
   for tex in name:
-    draw.text((x, top+g), str(tex), font=font, fill=255)
+    draw.text((x, top+g), str(tex), font=monaco, fill=255)
     g +=8
   disp.image(image)
   disp.show()
@@ -161,9 +162,10 @@ def recentUsers():
       rout.append(''.join(str(m)))
       if g[1] > 2:
         #email(x[4])
-        send_message_to_slack(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
+        send_message_to_slack(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago',' @channel')
     if cursor.rowcount >= 1:
       print(result[0][1])
+      print(rout)
       displayOut(rout)
     pass
   finally:
