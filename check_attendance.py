@@ -115,10 +115,10 @@ def displayOut(name):
   clear()
   disp.image(image)
   textUsed = name
-  g = 9
+  g = 12
   for tex in name:
     draw.text((x, top+g), str(tex), font=font, fill=255)
-    g +=9
+    g +=10
   header()
   disp.image(image)
   disp.show()
