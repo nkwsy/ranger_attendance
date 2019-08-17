@@ -73,6 +73,7 @@ x = 0
 # Load default font.
 #font = ImageFont.load_default()
 font = ImageFont.truetype('chicago.ttf', 8)
+fontsm = ImageFont.truetype('chicago.ttf', 6)
 fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
 monaco = ImageFont.truetype('monaco.ttf', 12)
@@ -88,7 +89,7 @@ def clear():
 def header():
   draw.rectangle((0, 0, width, 8), outline=0, fill=1)
   #t = now.strftime("%H:%M")
-  draw.text((x, 0), "Checkout  - Name", font=font, fill=0)
+  draw.text((1, 0), "Checkout  - Name", font=fontsm, fill=0)
 
 
 def displayThanks():
