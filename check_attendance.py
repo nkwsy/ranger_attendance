@@ -209,7 +209,7 @@ try:
         userOutAlert(cursor)
         displayThanks()
 
-      elif:
+      else:
         cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
         print(result[1],result[2],' Checked in')
         db.commit()
