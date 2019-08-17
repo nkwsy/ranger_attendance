@@ -216,8 +216,8 @@ try:
         displayIn(str(result[1]))
         send_message_to_slack('Checked In: {0} {1}').format(result[1],result[2])
         userOutAlert(cursor)
-      else:
-        displayInvalidID()
+    else:
+      displayInvalidID()
     #time.sleep(5)
 finally:
   pass
