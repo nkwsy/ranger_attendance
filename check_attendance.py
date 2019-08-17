@@ -87,7 +87,7 @@ def clear():
   draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
 def header():
-  draw.rectangle((0, 0, width, 8), outline=0, fill=1)
+  draw.rectangle((0, 0, width, 10), outline=0, fill=1)
   #t = now.strftime("%H:%M")
   draw.text((1, 0), "Checkout  - Name", font=fontsm, fill=0)
 
@@ -170,7 +170,7 @@ def recentUsers():
       pass
       g = days_hours_minutes(x[3])
       #m = x[0],x[1],'-H:',g[1],' M:',g[2]
-      m = '{0} {1} - {5} '.format(x[0],x[1],x[2],g[1],g[2],x[5])
+      m = '{5} - {0} {1} '.format(x[0],x[1],x[2],g[1],g[2],x[5])
       print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago', x[5])
       rout.append(''.join(str(m)))
       if g[1] > 2:
