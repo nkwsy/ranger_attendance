@@ -82,7 +82,7 @@ def displayThanks():
   disp.show()
   textUsed = 'Thanks :) '
   draw.text((x, top+8), textUsed, font=fontlg, fill=255)
-  disp.image(image)
+  #disp.image(image)
   disp.show()
   time.sleep(2)
   pass
@@ -92,7 +92,7 @@ def displayIn(name):
   disp.show()
   textUsed = 'Welcome '+ name
   draw.text((x, top+8), textUsed, font=font, fill=255)
-  disp.image(image)
+  #disp.image(image)
   disp.show()
   time.sleep(2)
 
@@ -103,7 +103,7 @@ def displayOut(name):
   disp.show()
   textUsed = name
   draw.text((x, top+1), textUsed, font=font, fill=255)
-  disp.image(image)
+  #disp.image(image)
   disp.show()
   pass
 
@@ -112,7 +112,7 @@ def displayInvalidID():
   disp.show()
   textUsed = "YOU DIDN'T SAY \nTHE MAGIC WORD"
   draw.text((x, top+8), textUsed, font=font, fill=255)
-  disp.image(image)
+  #disp.image(image)
   disp.show()
   pass
 ### SEND EMAIL
