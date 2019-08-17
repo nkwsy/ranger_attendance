@@ -111,7 +111,7 @@ def displayOut(name):
   textUsed = name
   g = 2
   for tex in name:
-    draw.text((x, top+g), str(tex), font=monaco, fill=255)
+    draw.text((x, top+g), str(tex), font=font, fill=255)
     g +=8
   disp.image(image)
   disp.show()
