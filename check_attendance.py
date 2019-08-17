@@ -189,7 +189,7 @@ try:
     recentUsers()
     # lcd.clear()
     # lcd.message('Place Card to\nrecord attendance')
-    id, text = reader.re ad()
+    id, text = reader.read()
     #id = 584185381670
     print(id)
     cursor.execute("Select id, first_name, last_name, phone FROM users WHERE rfid_uid=%s", (str(id),))
