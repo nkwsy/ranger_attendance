@@ -88,13 +88,19 @@ def display(name):
   pass
 
 def displayIn(name):
+  disp.fill(0)
+  disp.show()
   textUsed = 'Welcome '+ name
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
+  time.sleep(2)
+
   pass
 
 def displayOut(name):
+  disp.fill(0)
+  disp.show()
   textUsed = 'On Water: '+ ''.join(name)
   draw.text((x, top+1), textUsed, font=font, fill=255)
   disp.image(image)
@@ -102,7 +108,9 @@ def displayOut(name):
   pass
 
 def displayInvalidID():
-  textUsed = 'Bad read, try again \n Or replace card '
+  disp.fill(0)
+  disp.show()
+  textUsed = "YOU DIDN'T SAY \nTHE MAGIC WORD"
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
@@ -194,16 +202,18 @@ try:
         db.commit()
         print(result[1],result[2],' Checked out')
         userOutAlert(cursor)
+        display()
+
       else:
         cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
         print(result[1],result[2],' Checked in')
         db.commit()
-        display(result[1])
+        displayIn(result[1])
         time.sleep(10)
         userOutAlert(cursor)
     else:
       displayInvalidID()
-    time.sleep(2)
+    time.sleep(5)
 finally:
   pass
   #GPIO.cleanup()
