@@ -78,8 +78,7 @@ fontlg = ImageFont.truetype('chicago.ttf', 18)
 
 
 def displayThanks():
-  disp.fill(0)
-  disp.show()
+  disp.clear()
   textUsed = 'Thanks :) '
   draw.text((x, top+8), textUsed, font=fontlg, fill=255)
   disp.image(image)
@@ -88,8 +87,7 @@ def displayThanks():
   pass
 
 def displayIn(name):
-  disp.fill(0)
-  disp.show()
+  disp.clear()
   textUsed = 'Welcome '+ name
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
@@ -99,8 +97,7 @@ def displayIn(name):
   pass
 
 def displayOut(name):
-  disp.fill(0)
-  disp.show()
+  disp.clear()
   textUsed = name
   draw.text((x, top+1), textUsed, font=font, fill=255)
   disp.image(image)
@@ -108,8 +105,7 @@ def displayOut(name):
   pass
 
 def displayInvalidID():
-  disp.fill(0)
-  disp.show()
+  disp.clear()
   textUsed = "YOU DIDN'T SAY \nTHE MAGIC WORD"
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
