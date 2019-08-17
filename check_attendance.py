@@ -105,7 +105,7 @@ def displayOut(name):
   textUsed = name
   g = 1
   for x in name:
-    draw.text((x, top+g), textUsed, font=font, fill=255)
+    draw.text((x, top+g), str(x), font=font, fill=255)
     g +=8
   disp.image(image)
   disp.show()
