@@ -77,6 +77,9 @@ fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
 monaco = ImageFont.truetype('monaco.ttf', 8)
 
+cairolg = ImageFont.truetype('Cairo.ttf', 18)
+cairo = ImageFont.truetype('Cairo.ttf', 8)
+
 def clear():
   draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
@@ -161,8 +164,8 @@ def recentUsers():
       print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
       rout.append(''.join(str(m)))
       if g[1] > 2:
-        #email(x[4])
-        send_message_to_slack(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago',' @channel')
+        #email(x[4]){0} {1}'.format(result[1],result[2])
+        send_message_to_slack('@channel {0} {1} has been out for {3} Hour {4} Minutes, {2}'.format(x[0],x[1],x[2],g[1],g[2]))
     if cursor.rowcount >= 1:
       print(result[0][1])
       print(rout)
