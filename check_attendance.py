@@ -205,7 +205,7 @@ try:
         cursor.execute("UPDATE attendance SET clock_out=CURRENT_TIMESTAMP WHERE clock_out IS NULL AND user_id=(%s)", (result[0],))
         db.commit()
         print(result[1],result[2],' Checked out')
-        send_message_to_slack('Checked Out: {0} {1}').format(result[1],result[2])
+        send_message_to_slack('Checked Out: {0} {1}'.format(result[1],result[2]))
         userOutAlert(cursor)
         displayThanks()
 
@@ -214,7 +214,7 @@ try:
         print(result[1],result[2],' Checked in')
         db.commit()
         displayIn(str(result[1]))
-        send_message_to_slack('Checked In: {0} {1}').format(result[1],result[2])
+        send_message_to_slack('Checked In: {0} {1}'.format(result[1],result[2]))
         userOutAlert(cursor)
     else:
       displayInvalidID()
