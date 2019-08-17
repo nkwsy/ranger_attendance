@@ -77,7 +77,7 @@ fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
 
 
-def display(name):
+def displayThanks():
   disp.fill(0)
   disp.show()
   textUsed = 'Thanks :) '
@@ -202,7 +202,7 @@ try:
         db.commit()
         print(result[1],result[2],' Checked out')
         userOutAlert(cursor)
-        display()
+        displayThanks()
 
       else:
         cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
