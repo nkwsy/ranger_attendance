@@ -128,17 +128,19 @@ def recentUsers():
   try:
     cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
     result = cursor.fetchall()
+    rout = ''
     for x in result:
       pass
       g = days_hours_minutes(x[3])
       m = x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago'
       print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
+      rout += m + '\n'
       if g[1] > 2:
         #email(x[4])
         send_message_to_slack(m)
     if cursor.rowcount >= 1:
       print(result[0][1])
-      #displayUser(Usernames)
+      displayUser(rout)
     pass
   finally:
     pass
@@ -155,7 +157,7 @@ def userOutAlert(cursor):
   cursor.execute("Select user_id, age(clock_in) FROM attendance WHERE clock_out IS NULL ORDER BY clock_in")
   result = cursor.fetchall()
   print(result)
-  displayOut(result)
+  #displayOut(result)
   pass
 
 try:
