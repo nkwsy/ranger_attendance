@@ -189,8 +189,8 @@ try:
     recentUsers()
     # lcd.clear()
     # lcd.message('Place Card to\nrecord attendance')
-    #id, text = reader.re ad()
-    id = 584185381670
+    id, text = reader.re ad()
+    #id = 584185381670
     print(id)
     cursor.execute("Select id, first_name, last_name, phone FROM users WHERE rfid_uid=%s", (str(id),))
     result = cursor.fetchone()
@@ -215,7 +215,7 @@ try:
         userOutAlert(cursor)
     else:
       displayInvalidID()
-    time.sleep(5)
+    #time.sleep(5)
 finally:
   pass
   #GPIO.cleanup()
