@@ -140,7 +140,7 @@ def recentUsers():
         send_message_to_slack(m)
     if cursor.rowcount >= 1:
       print(result[0][1])
-      displayUser(rout)
+      displayOut(rout)
     pass
   finally:
     pass
