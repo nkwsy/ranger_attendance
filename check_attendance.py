@@ -46,6 +46,7 @@ i2c = busio.I2C(SCL, SDA)
 disp = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 
 # Clear display.
+disp.begin()
 disp.fill(0)
 disp.show()
  
