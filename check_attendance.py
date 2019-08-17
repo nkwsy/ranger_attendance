@@ -72,7 +72,7 @@ x = 0
 
 # Load default font.
 #font = ImageFont.load_default()
-font = ImageFont.truetype('chicago.ttf', 9)
+font = ImageFont.truetype('chicago.ttf', 8)
 fontmd = ImageFont.truetype('chicago.ttf', 12)
 fontlg = ImageFont.truetype('chicago.ttf', 18)
 
@@ -101,8 +101,12 @@ def displayIn(name):
 def displayOut(name):
   disp.fill(0)
   disp.show()
+  disp.image(image)
   textUsed = name
-  draw.text((x, top+1), textUsed, font=font, fill=255)
+  g = 1
+  for x in name:
+    draw.text((x, top+g), textUsed, font=font, fill=255)
+    g +=8
   disp.image(image)
   disp.show()
   pass
@@ -149,13 +153,13 @@ def recentUsers():
   try:
     cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
     result = cursor.fetchall()
-    rout = ''
+    rout = []
     for x in result:
       pass
       g = days_hours_minutes(x[3])
-      m = x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago'
+      m = x[0],x[1],'-H:',g[1],' M:',g[2]
       print(x[0],x[1],x[2],'Time on water: ',g[1],' Hour',g[2],' Minutes ago')
-      rout += ''.join(str(m)) + '\n'
+      rout += ''.join(str(m))
       if g[1] > 2:
         #email(x[4])
         send_message_to_slack(m)
