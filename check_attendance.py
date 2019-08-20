@@ -148,10 +148,10 @@ def displayInitName(name):
   #clear()
   textUsed = 'Please scan card for \n'+ name +'\n'
   draw.text((x, top+8), textUsed, font=font, fill=255)
-  draw.rectangle((0, 0, width, 50), outline=1, fill=0)
+  #draw.rectangle((0, 0, width, 50), outline=1, fill=0)
   disp.image(image)
   disp.show()
-  time.sleep(1)
+  #time.sleep(1)
 
   pass
 ### SEND EMAIL
@@ -228,12 +228,11 @@ def initializeCards():
     result = cursor.fetchall()
     rout = []
     for x in result:
-      pass
       #m = x[0],x[1],'-H:',g[1],' M:',g[2]
       m = '{1} {2} '.format(x[0],x[1],x[2],x[3])      
       displayInitName(m)
       id, text = reader.read()
-      cursor.execute("UPDATE users SET rfid_uid=(%s) WHERE id=(%s)", (str(id),result[0]))
+      cursor.execute("UPDATE users SET rfid_uid=(%s) WHERE id=(%s)", (str(id),result[0],))
       displayThanks()
     pass
   finally:
