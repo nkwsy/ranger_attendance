@@ -224,7 +224,7 @@ def userOutAlert(cursor):
 
 def initializeCards():
   try:
-    cursor.execute("Select id, first_name,last_name,phone,email FROM users WHERE rfid_uid IS NULL ORDER BY DESC ;")
+    cursor.execute("Select id, first_name,last_name,phone,email FROM users WHERE rfid_uid IS NULL;")
     result = cursor.fetchall()
     rout = []
     for x in result:
