@@ -111,6 +111,18 @@ def displayIn(name):
 
   pass
 
+def displayInfo(name):
+  #clear()
+  textUsed = 'Welcome '+ name
+  draw.text((x, top+8), textUsed, font=font, fill=255)
+  draw.rectangle((0, 0, width, 50), outline=1, fill=0)
+  disp.image(image)
+  disp.show()
+  time.sleep(2)
+
+  pass
+
+
 def displayOut(name):
   clear()
   disp.image(image)
@@ -130,6 +142,17 @@ def displayInvalidID():
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
+  pass
+
+def displayInitName(name):
+  #clear()
+  textUsed = 'Please scan card for \n'+ name +'\n'
+  draw.text((x, top+8), textUsed, font=font, fill=255)
+  draw.rectangle((0, 0, width, 50), outline=1, fill=0)
+  disp.image(image)
+  disp.show()
+  time.sleep(1)
+
   pass
 ### SEND EMAIL
 import smtplib
@@ -199,7 +222,25 @@ def userOutAlert(cursor):
   #displayOut(result)
   pass
 
+def initializeCards():
+  try:
+    cursor.execute("Select id, first_name,last_name,phone,email FROM users WHERE rfid_uid IS NULL ORDER BY DESC ;")
+    result = cursor.fetchall()
+    rout = []
+    for x in result:
+      pass
+      #m = x[0],x[1],'-H:',g[1],' M:',g[2]
+      m = '{1} {2} '.format(x[0],x[1],x[2],x[3])      
+      displayInitName(m)
+      id, text = reader.read()
+      cursor.execute("UPDATE users SET rfid_uid=(%s) WHERE id=(%s)", (str(id),result[0]))
+      displayThanks()
+    pass
+  finally:
+    pass
+
 try:
+  initializeCards()
   while True:
     recentUsers()
     # lcd.clear()
@@ -221,8 +262,9 @@ try:
         db.commit()
         print(result[1],result[2],' Checked out')
         send_message_to_slack('Checked Out: {0} {1}'.format(result[1],result[2]))
-        userOutAlert(cursor)
         displayThanks()
+        userOutAlert(cursor)
+
 
       else:
         cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
