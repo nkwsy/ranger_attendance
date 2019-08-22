@@ -6,6 +6,11 @@ from mfrc522 import SimpleMFRC522
 import Adafruit_CharLCD as LCD
 import psycopg2
 import yaml
+import os
+
+
+
+CURRENT_DIR = os.path.dirname(__file__)
 
 #import eink.py
 with open("/home/pi/ranger_attendance/dbcreds.yml", 'r') as ymlfile:
@@ -73,14 +78,14 @@ x = 0
 
 # Load default font.
 #font = ImageFont.load_default()
-font = ImageFont.truetype('chicago.ttf', 8)
-fontsm = ImageFont.truetype('chicago.ttf', 6)
-fontmd = ImageFont.truetype('chicago.ttf', 12)
-fontlg = ImageFont.truetype('chicago.ttf', 18)
-monaco = ImageFont.truetype('monaco.ttf', 12)
+font = ImageFont.truetype('./chicago.ttf', 8)
+fontsm = ImageFont.truetype('./chicago.ttf', 6)
+fontmd = ImageFont.truetype('./chicago.ttf', 12)
+fontlg = ImageFont.truetype('./chicago.ttf', 18)
+monaco = ImageFont.truetype('./monaco.ttf', 12)
 
-cairolg = ImageFont.truetype('Cairo.ttf', 18)
-cairo = ImageFont.truetype('Cairo.ttf', 8)
+cairolg = ImageFont.truetype('./Cairo.ttf', 18)
+cairo = ImageFont.truetype('./Cairo.ttf', 8)
 
 x = 2
 
