@@ -78,14 +78,14 @@ x = 0
 
 # Load default font.
 #font = ImageFont.load_default()
-font = ImageFont.truetype('./chicago.ttf', 8)
-fontsm = ImageFont.truetype('./chicago.ttf', 6)
-fontmd = ImageFont.truetype('./chicago.ttf', 12)
-fontlg = ImageFont.truetype('./chicago.ttf', 18)
-monaco = ImageFont.truetype('./monaco.ttf', 12)
+font = ImageFont.truetype('/home/pi/ranger_attendanc/home/pi/ranger_attendance/chicago.ttf', 8)
+fontsm = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 6)
+fontmd = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 12)
+fontlg = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 18)
+monaco = ImageFont.truetype('/home/pi/ranger_attendance/monaco.ttf', 12)
 
-cairolg = ImageFont.truetype('./Cairo.ttf', 18)
-cairo = ImageFont.truetype('./Cairo.ttf', 8)
+cairolg = ImageFont.truetype('/home/pi/ranger_attendance/Cairo.ttf', 18)
+cairo = ImageFont.truetype('/home/pi/ranger_attendance/Cairo.ttf', 8)
 
 x = 2
 
