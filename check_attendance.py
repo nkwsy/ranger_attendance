@@ -78,7 +78,7 @@ x = 0
 
 # Load default font.
 #font = ImageFont.load_default()
-font = ImageFont.truetype('/home/pi/ranger_attendanc/home/pi/ranger_attendance/chicago.ttf', 8)
+font = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 8)
 fontsm = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 6)
 fontmd = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 12)
 fontlg = ImageFont.truetype('/home/pi/ranger_attendance/chicago.ttf', 18)
