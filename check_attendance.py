@@ -8,7 +8,7 @@ import psycopg2
 import yaml
 
 #import eink.py
-with open("dbcreds.yml", 'r') as ymlfile:
+with open("/home/pi/ranger_attendance/dbcreds.yml", 'r') as ymlfile:
     conf = yaml.load(ymlfile)
 #conf = yaml.load(open('./dbcreds.yml'))
 user = conf['User']
