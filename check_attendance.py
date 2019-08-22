@@ -186,7 +186,7 @@ def send_message_to_slack(text):
 
 def recentUsers():
   try:
-    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in, 'HH12:MI') AS duration FROM attendance,users WHERE EXISTS (SELECT * FROM users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL) ORDER BY  duration DESC ;")
+    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in, 'HH12:MI') AS duration FROM attendance,users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL ORDER BY  duration DESC ;")
     result = cursor.fetchall()
     rout = []
     for x in result:
@@ -232,7 +232,7 @@ def initializeCards():
       m = '{1} {2} '.format(x[0],x[1],x[2],x[3])      
       displayInitName(m)
       id, text = reader.read()
-      cursor.execute("UPDATE users SET rfid_uid=(%s) WHERE id=(%s)", (str(id),result[0],))
+      cursor.execute("UPDATE users SET rfid_uid={} WHERE id= {}".format(str(id),x[0],))
       displayThanks()
     pass
   finally:
@@ -262,8 +262,7 @@ try:
         print(result[1],result[2],' Checked out')
         send_message_to_slack('Checked Out: {0} {1}'.format(result[1],result[2]))
         displayThanks()
-        userOutAlert(cursor)
-
+        recentUsers()
 
       else:
         cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
@@ -271,7 +270,7 @@ try:
         db.commit()
         displayIn(str(result[1]))
         send_message_to_slack('Checked In: {0} {1}'.format(result[1],result[2]))
-        userOutAlert(cursor)
+        recentUsers()
     else:
       displayInvalidID()
     #time.sleep(5)

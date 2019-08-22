@@ -1,0 +1,9 @@
+RPi.GPIO
+spidev
+mfrc522
+psycopg2
+adafruit_ssd1306
+Adafruit-Blinka
+Adafruit_CharLCD
+pyyaml
+adafruit-circuitpython-ssd1306
