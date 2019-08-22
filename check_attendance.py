@@ -254,7 +254,7 @@ try:
 #Check if account is valid, sign in or out the user.
     if cursor.rowcount >= 1:
       # lcd.message("Welcome " + result[1])
-      cursor.execute("Select user_id FROM attendance WHERE clock_out IS NULL")
+      cursor.execute("Select user_id FROM attendance WHERE clock_out IS NULL AND user_id= {}".format(result[0]))
       if cursor.rowcount >= 1:
         #currentUser = timeOut(cursor.fetchone())
         cursor.execute("UPDATE attendance SET clock_out=CURRENT_TIMESTAMP WHERE clock_out IS NULL AND user_id=(%s)", (result[0],))
