@@ -175,12 +175,12 @@ def email(emailaddress):
 
 # Posting to a Slack channel
 def send_message_to_slack(text):
-import json
-import requests
+    import json
+    import requests
 
     # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
     webhook_url = 'https://hooks.slack.com/services/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'
-    slack_data = {'text': "Sup! We're hacking shit together @HackSussex :spaghetti:"}
+    slack_data = {"text": "{0}".format(text)}
 
     response = requests.post(
         webhook_url, data=json.dumps(slack_data),
