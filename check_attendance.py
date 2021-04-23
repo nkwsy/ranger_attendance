@@ -27,7 +27,7 @@ db = psycopg2.connect(
   user=user,
   password=pwd,
   database=database,
-  port=port 
+  port=port
 )
 
 cursor = db.cursor()
@@ -36,16 +36,16 @@ reader = SimpleMFRC522()
 
 ### SCreen stuff
 import subprocess
- 
+
 from board import SCL, SDA
 import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
- 
- 
+
+
 # Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
- 
+
 # Create the SSD1306 OLED class.
 # The first two parameters are the pixel width and pixel height.  Change these
 # to the right size for your display!
@@ -54,19 +54,19 @@ disp = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
 # Clear display.
 disp.fill(0)
 disp.show()
- 
+
 # Create blank image for drawing.
 # Make sure to create image with mode '1' for 1-bit color.
 width = disp.width
 height = disp.height
 image = Image.new('1', (width, height))
- 
+
 # Get drawing object to draw on image.
 draw = ImageDraw.Draw(image)
 
 # Draw a black filled box to clear the image.
 draw.rectangle((0, 0, width, height), outline=0, fill=0)
- 
+
 # Draw some shapes.
 # First define some constants to allow easy resizing of shapes.
 padding = -2
@@ -144,7 +144,7 @@ def displayOut(name):
 
 def displayInvalidID():
   clear()
-  textUsed = "YOU DIDN'T SAY \nTHE MAGIC WORD"
+  textUsed = "YOU DIDN'T SAY \nTHE MAGIC WORD!"
   draw.text((x, top+8), textUsed, font=font, fill=255)
   disp.image(image)
   disp.show()
@@ -177,14 +177,14 @@ def email(emailaddress):
 def send_message_to_slack(text):
     from urllib import request, parse
     import json
- 
+
     post = {"text": "{0}".format(text)}
- 
+
     try:
         json_data = json.dumps(post)
-        req = request.Request("https://hooks.slack.com/services/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",
+        req = request.Request("https://hooks.slack.com/services/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",
                               data=json_data.encode('ascii'),
-                              headers={'Content-Type': 'application/json'}) 
+                              headers={'Content-Type': 'application/json'})
         resp = request.urlopen(req)
     except Exception as em:
         print("EXCEPTION: " + str(em))
@@ -215,7 +215,7 @@ def recentUsers():
 
 # def timeOut():
 #   try:
-#   t = psycopg2.Timestamp  
+#   t = psycopg2.Timestamp
 #   cursor.execute("INSERT INTO attendance (user_id) VALUES (%s)", (result[0],) )
 
 def days_hours_minutes(td):
@@ -235,7 +235,7 @@ def initializeCards():
     rout = []
     for x in result:
       #m = x[0],x[1],'-H:',g[1],' M:',g[2]
-      m = '{1} {2} '.format(x[0],x[1],x[2],x[3])      
+      m = '{1} {2} '.format(x[0],x[1],x[2],x[3])
       displayInitName(m)
       id, text = reader.read()
       cursor.execute("UPDATE users SET rfid_uid={} WHERE id= {}".format(str(id),x[0],))
