@@ -182,7 +182,7 @@ def send_message_to_slack(text):
 
     try:
         json_data = json.dumps(post)
-        req = request.Request("https://hooks.slack.com/services/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",
+        req = request.Request("https://hooks.slack.com/services/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",
                               data=json_data.encode('ascii'),
                               headers={'Content-Type': 'application/json'})
         resp = request.urlopen(req)
@@ -272,6 +272,7 @@ try:
         print(result[1],result[2],' Checked in')
         db.commit()
         displayIn(str(result[1]))
+        send_message_to_slack('ethuet')
         send_message_to_slack('Checked In: {0} {1}'.format(result[1],result[2]))
         recentUsers()
     else:
