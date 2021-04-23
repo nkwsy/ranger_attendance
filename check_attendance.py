@@ -182,9 +182,8 @@ def send_message_to_slack(text):
 
     try:
         json_data = json.dumps(post)
-        req = request.Request("https://hooks.slack.com/services/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",
-                              # data=json_data.encode('ascii'),
-                              data=post,
+        req = request.Request("https://hooks.slack.com/services/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",
+                              data=json_data.encode('ascii'),
                               headers={'Content-Type': 'application/json'})
         resp = request.urlopen(req)
     except Exception as em:
