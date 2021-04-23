@@ -180,7 +180,7 @@ def send_message_to_slack(text):
 
     # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
     webhook_url = 'https://hooks.slack.com/services/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'
-    slack_data = {"text": "{0}".format(text)}
+    slack_data = {"text": 'tehu'}
 
     response = requests.post(
         webhook_url, data=json.dumps(slack_data),
@@ -191,6 +191,7 @@ def send_message_to_slack(text):
             'Request to slack returned an error %s, the response is:\n%s'
             % (response.status_code, response.text)
         )
+
     # from urllib import request, parse
     # import json
     #
