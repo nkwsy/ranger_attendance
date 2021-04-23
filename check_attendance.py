@@ -179,7 +179,7 @@ def send_message_to_slack(text):
     import requests
 
     # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
-    webhook_url = 'https://hooks.slack.com/services/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'
+    webhook_url = 'https://hooks.slack.com/services/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'
     slack_data = {"text": 'tehu'}
 
     response = requests.post(
