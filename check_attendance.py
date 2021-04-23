@@ -175,20 +175,37 @@ def email(emailaddress):
 
 # Posting to a Slack channel
 def send_message_to_slack(text):
-    from urllib import request, parse
-    import json
+import json
+import requests
 
-    post = {"text": "{0}".format(text)}
+    # Set the webhook_url to the one provided by Slack when you create the webhook at https://my.slack.com/services/new/incoming-webhook/
+    webhook_url = 'https://hooks.slack.com/services/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'
+    slack_data = {'text': "Sup! We're hacking shit together @HackSussex :spaghetti:"}
 
-    try:
-        json_data = json.dumps(post)
-        req = request.Request("https://hooks.slack.com/services/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",
-                              data=json_data.encode('ascii'),
-                              headers={'Content-Type': 'application/json'})
-        resp = request.urlopen(req)
-    except Exception as em:
-        print("EXCEPTION: " + str(em))
-
+    response = requests.post(
+        webhook_url, data=json.dumps(slack_data),
+        headers={'Content-Type': 'application/json'}
+    )
+    if response.status_code != 200:
+        raise ValueError(
+            'Request to slack returned an error %s, the response is:\n%s'
+            % (response.status_code, response.text)
+        )
+    # from urllib import request, parse
+    # import json
+    #
+    # post = {"text": "{0}".format(text)}
+    #
+    # try:
+    #     json_data = json.dumps(post)
+    #     req = request.Request("https://hooks.slack.com/services/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",
+    #                           data=json_data.encode('ascii'),
+    #                           headers={'Content-Type': 'application/json'})
+    #     resp = request.urlopen(req)
+    #
+    # except Exception as em:
+    #     print("EXCEPTION: " + str(em))
+    #
 
 def recentUsers():
   try:
@@ -272,7 +289,6 @@ try:
         print(result[1],result[2],' Checked in')
         db.commit()
         displayIn(str(result[1]))
-        send_message_to_slack('ethuet')
         send_message_to_slack('Checked In: {0} {1}'.format(result[1],result[2]))
         recentUsers()
     else:
