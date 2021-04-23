@@ -183,7 +183,8 @@ def send_message_to_slack(text):
     try:
         json_data = json.dumps(post)
         req = request.Request("https://hooks.slack.com/services/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",
-                              data=json_data.encode('ascii'),
+                              # data=json_data.encode('ascii'),
+                              data=post,
                               headers={'Content-Type': 'application/json'})
         resp = request.urlopen(req)
     except Exception as em:
@@ -213,9 +214,6 @@ def recentUsers():
   finally:
     pass
 
-# def timeOut():
-#   try:
-#   t = psycopg2.Timestamp
 #   cursor.execute("INSERT INTO attendance (user_id) VALUES (%s)", (result[0],) )
 
 def days_hours_minutes(td):
