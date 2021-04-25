@@ -281,7 +281,7 @@ try:
         #currentUser = timeOut(cursor.fetchone())
         cursor.execute("UPDATE attendance SET clock_out=CURRENT_TIMESTAMP WHERE clock_out IS NULL AND user_id=(%s)", (result[0],))
         db.commit()
-        print(result[1],result[2],' Checked out')
+        print(result[1],result[2],' Checked out', result)
         send_message_to_slack('Checked Out: {0} {1}'.format(result[1],result[2]))
         displayThanks()
         recentUsers()
