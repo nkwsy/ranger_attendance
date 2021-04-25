@@ -288,7 +288,7 @@ try:
 
       else:
         cursor.execute("INSERT INTO attendance (user_id, clock_in) VALUES (%s, CURRENT_TIMESTAMP)", (result[0],) )
-        print(result[1],result[2],' Checked in')
+        print(result[1],result[2],' Checked in', result)
         db.commit()
         displayIn(str(result[1]))
         send_message_to_slack('Checked In: {0} {1}'.format(result[1],result[2]))
