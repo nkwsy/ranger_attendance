@@ -211,7 +211,7 @@ def send_message_to_slack(text):
 
 def recentUsers():
   try:
-    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in, 'HH12:MI') AS duration FROM attendance,users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL ORDER BY  duration DESC ;")
+    cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in, 'HH12:MI') FROM attendance,users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL ORDER BY  duration DESC ;")
     result = cursor.fetchall()
     rout = []
     for x in result:
@@ -241,7 +241,7 @@ def userOutAlert(cursor):
   cursor.execute("Select user_id, age(clock_in) FROM attendance WHERE clock_out IS NULL ORDER BY clock_in")
   result = cursor.fetchall()
   print(result)
-  #displayOut(result)
+  displayOut(result)
   pass
 
 def initializeCards():
