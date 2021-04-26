@@ -214,6 +214,7 @@ def recentUsers():
     cursor.execute("Select first_name,last_name,phone,age(now(),clock_in),email, to_char(clock_in AT TIME ZONE 'America/Chicago', 'HH12:MI') as duration FROM attendance,users WHERE attendance.user_id = users.id AND attendance.clock_out IS NULL ORDER BY  duration DESC ;")
     result = cursor.fetchall()
     rout = []
+    print(result)
     for x in result:
       pass
       g = days_hours_minutes(x[3])
