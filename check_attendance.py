@@ -7,7 +7,12 @@ import Adafruit_CharLCD as LCD
 import psycopg2
 import yaml
 import os
+import sched
+import thread
 
+# done_counting = threading.Event()
+
+# done_counting.wait(0.5)
 
 
 CURRENT_DIR = os.path.dirname(__file__)
@@ -261,8 +266,20 @@ def initializeCards():
   finally:
     pass
 
+
+### start to check users in different thread
+def startRecentUsersThread():
+    while true:
+    recentUsers()
+    time.sleep(900)
+    done_counting.set()
+
+
+
 try:
   initializeCards()
+  thread = threading.Thread(target=startRecentUsersThread)
+  thread.start()
   while True:
     recentUsers()
     # lcd.clear()
@@ -296,6 +313,8 @@ try:
         recentUsers()
     else:
       displayInvalidID()
+      initializeCards()
+
     #time.sleep(5)
 finally:
   pass
