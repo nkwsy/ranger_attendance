@@ -8,7 +8,7 @@ import psycopg2
 import yaml
 import os
 import sched
-import thread
+import threading
 
 # done_counting = threading.Event()
 
