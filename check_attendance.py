@@ -310,6 +310,7 @@ try:
         send_message_to_slack('Checked In: {0} {1}'.format(result[1],result[2]))
         recentUsers()
     else:
+      initializeCards()
       displayInvalidID()
       initializeCards()
 
