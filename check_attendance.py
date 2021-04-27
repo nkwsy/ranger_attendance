@@ -269,7 +269,7 @@ def initializeCards():
 
 ### start to check users in different thread
 def startRecentUsersThread():
-  while true:
+  while True:
     recentUsers()
     time.sleep(900)
     done_counting.set()
