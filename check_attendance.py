@@ -107,7 +107,9 @@ def header():
 def displayThanks():
   clear()
   textUsed = 'Thanks :) '
+  turt = 'e'
   draw.text((x, top+8), textUsed, font=fontlg, fill=255)
+  draw.text((x, top+8), turt, font=cairolg, fill=255)
   disp.image(image)
   disp.show()
   time.sleep(2)
@@ -252,6 +254,7 @@ def userOutAlert(cursor):
 
 def initializeCards():
   try:
+    clear()
     cursor.execute("Select id, first_name,last_name,phone,email FROM users WHERE rfid_uid IS NULL;")
     result = cursor.fetchall()
     rout = []
